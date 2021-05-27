@@ -1,7 +1,7 @@
 package com.aziz.newappsbyphillip.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -12,7 +12,7 @@ import com.aziz.newappsbyphillip.db.ArticleDatabase
 import com.aziz.newappsbyphillip.repositories.NewsRepository
 import kotlinx.android.synthetic.main.activity_news.*
 
-class MainActivity : AppCompatActivity() {
+class NewsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNewsBinding
     lateinit var viewModel: NewsViewModel
