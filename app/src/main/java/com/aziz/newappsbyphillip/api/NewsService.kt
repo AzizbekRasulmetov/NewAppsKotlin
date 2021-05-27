@@ -1,5 +1,6 @@
 package com.aziz.newappsbyphillip.api
 
+import com.aziz.newappsbyphillip.models.NewsResponse
 import com.aziz.newappsbyphillip.util.Constants.Companion.API_KEY
 import retrofit2.Response
 import retrofit2.http.GET

@@ -1,4 +1,4 @@
-package com.aziz.newappsbyphillip.api
+package com.aziz.newappsbyphillip.models
 
 data class NewsResponse(
     val articles: List<Article>,
