@@ -1,5 +1,6 @@
 package com.aziz.newappsbyphillip.ui
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,8 +15,10 @@ class NewsViewModel(val repository: NewsRepository): ViewModel() {
 
     val newsLiveData: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
     var breakingNewsPage = 1
+    var breakingNewsResponse: NewsResponse? = null
     val searchNewsLiveData: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
     var searchNewsPage = 1
+    var searchNewsResponse: NewsResponse? = null
 
     init{
         getAllNews("us")
@@ -36,7 +39,15 @@ class NewsViewModel(val repository: NewsRepository): ViewModel() {
     private fun handleResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
         if(response.isSuccessful){
             response.body()?.let {
-                return Resource.Success(it)
+                breakingNewsPage++
+                if(breakingNewsResponse == null){
+                    breakingNewsResponse = it
+                }else{
+                    Log.d("ArticlesLog", breakingNewsResponse?.articles?.size.toString())
+                    breakingNewsResponse?.articles?.addAll(it.articles)
+                    Log.d("ArticlesLog", breakingNewsResponse?.articles?.size.toString())
+                }
+                return Resource.Success(breakingNewsResponse?: it)
             }
         }
         return Resource.Error(response.message())
@@ -45,7 +56,13 @@ class NewsViewModel(val repository: NewsRepository): ViewModel() {
     private fun handleSearchResponse(response: Response<NewsResponse>): Resource<NewsResponse>{
         if(response.isSuccessful){
             response.body()?.let{
-                return Resource.Success(it)
+                searchNewsPage++
+                if(searchNewsResponse == null){
+                    searchNewsResponse = it
+                }else{
+                    searchNewsResponse?.articles?.addAll(it.articles)
+                }
+                return Resource.Success(searchNewsResponse?: it)
             }
         }
         return Resource.Error(response.message())

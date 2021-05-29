@@ -29,7 +29,7 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
         val article = args.article
         Log.d("Infoforme", article.toString())
         webView.apply {
-            webViewClient = WebViewClient()
+            webViewClient = WebViewClient() //Used for displaying it directly in phone rather than opening in browser
             loadUrl(article.url)
         }
 
